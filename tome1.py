@@ -2,14 +2,17 @@
 
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
+from io import StringIO
 from datetime import datetime
 import time,random,sys,json,codecs,threading,glob,requests,urllib
+import re,string,os
+import os.path,sys,urllib,shutil,subprocess 
 
 cl = LINETCR.LINE()
 cl.login(qr=True)
 cl.loginResult()
 
-ki = LINETCR.LINE()
+ki = LINETCR.LINNE()
 ki.login(qr=True)
 ki.loginResult()
 
@@ -17,7 +20,7 @@ ki2 = LINETCR.LINE()
 ki2.login(qr=True)
 ki2.loginResult() 
 
-ki2 = LINETCR.LINE()
+ki2 = LINETCR.LINE
 ki.login(qr=True)
 ki2.loginResult() 
 
@@ -51,23 +54,95 @@ ki9.loginResult()
 
 k1 = LINETCR.LINE()
 k1.login(qr=True)
-k1.loginResult()
+k1.loginResult() 
 
 k2 = LINETCR.LINE()
 k2.login(qr=True)
-k2.loginResult()
+k2.loginResult() 
 
 k3 = LINETCR.LINE()
 k3.login(qr=True)
-k3.loginResult()
+k3.loginResult() 
 
 k4 = LINETCR.LINE()
 k4.login(qr=True)
-k4.loginResult()
+k4.loginResult() 
 
 k5 = LINETCR.LINE()
 k5.login(qr=True)
-k5.loginResult()
+k5.loginResult() 
+
+k6 = LINETCR.LINE()
+k6.login(qr=True)
+k6.loginResult() 
+
+k7 = LINETCR.LINE()
+k7.login(qr=True)
+k7.loginResult() 
+
+k8 = LINETCR.LINE()
+k8.login(qr=True)
+k8.loginResult() 
+
+k9 = LINETCR.LINE()
+k9.login(qr=True)
+k9.loginResult() 
+
+w1 = LINETCR.LINE()
+w1.login(qr=True)
+w1.loginResult()
+
+w2 = LINETCR.LINE()
+w2.login(qr=True)
+w2.loginResult()
+
+w3 = LINETCR.LINE()
+w3.login(qr=True)
+w3.loginResult()
+
+w4 = LINETCR.LINE()
+w4.login(qr=True)
+w4.loginResult()
+
+w5 = LINETCR.LINE()
+w5.login(qr=True)
+w5.loginResult()
+
+w6 = LINETCR.LINE()
+w6.login(qr=True)
+w6.loginResult() 
+
+w7 = LINETCR.LINE()
+w7.login(qr=True)
+w7.loginResult() 
+
+w8 = LINETCR.LINE()
+w8.login(qr=True)
+w8.loginResult() 
+
+w9 = LINETCR.LINE()
+w9.login(qr=True)
+w9.loginResult() 
+
+k11 = LINETCR.LINE()
+k11.login(qr=True)
+k11.loginResult() 
+
+k12 = LINETCR.LINE()
+k12.login(qr=True)
+k12.loginResult() 
+
+k13 = LINETCR.LINE()
+k13.login(qr=True)
+k13.loginResult()
+
+k14 = LINETCR.LINE()
+k14.login(qr=True)
+k14.loginResult()
+
+k15 = LINETCR.LINE()
+k15.login(qr=True)
+k15.loginResult() 
 
 #cl = LINETCR.LINE()
 #cl.login(token="authToken Kamu")
@@ -77,7 +152,7 @@ print u"login success"
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-helpMessage ="""||=====  F O R   U S E R  =====||
+helpMessage ="""||=====TOME BOTLINE THAILAND=====||
 ||✒ Mention       - Mention All Member Group
 ||✒ Lurking       - Set Point Read
 ||✒ Result        - Reading Point
@@ -159,7 +234,7 @@ helpMessage ="""||=====  F O R   U S E R  =====||
 """
 helo=""
 
-KAC=[cl,ki,ki2,ki3,ki4,ki5,ki6,ki7,ki8,ki9,k1,k2,k3,k4,k5,k6,k6,k8,k9,w1,w2,w3,w4,w5,w6,w7,w8,w9,l1,l2,l3,l4,l5]
+KAC=[cl,ki,ki2,ki3,ki4,ki5,ki6,ki7,ki8,ki9,k1,k2,k3,k4,k5,k6,k6,k8,k9,w1,w2,w3,w4,w5,w6,w7,w8,w9,kl1,kl2,kl3,kl4,kl5]
 mid = cl.getProfile().mid
 kimid = ki.getProfile().mid
 ki2mid = ki2.getProfile().mid
@@ -188,12 +263,12 @@ w6mid = w6.getProfile().mid
 w7mid = w7.getProfile().mid
 w8mid = w8.getProfile().mid
 w9mid = w9.getProfile().mid
-l1mid = l1.getProfile().mid
-l2mid = l2.getProfile().mid
-l3mid = l3.getProfile().mid
-l4mid = l4.getProfile().mid
-l5mid = l5.getProfile().mid
-Bots = [mid,kimid,ki2mid,ki3mid,ki4mid,ki5mid,ki6mid,ki7mid,ki8mid,ki9mid,k1mid,k2mid,k3mid,k4mid,k5mid,k6mid,k7mid,k8mid,k9mid,w1mid,w2mid,w3mid,w4mid,w5mid,w6mid,w7mid,w8mid,w9mid,l1mid,l2mid,l3mid,l4mid,l5mid,"u1f41296217e740650e0448b96851a3e2"]
+kl1mid = kl1.getProfile().mid
+kl2mid = kl2.getProfile().mid
+kl3mid = kl3.getProfile().mid
+kl4mid = kl4.getProfile().mid
+kl5mid = kl5.getProfile().mid
+Bots = [mid,kimid,ki2mid,ki3mid,ki4mid,ki5mid,ki6mid,ki7mid,ki8mid,ki9mid,k1mid,k2mid,k3mid,k4mid,k5mid,k6mid,k7mid,k8mid,k9mid,w1mid,w2mid,w3mid,w4mid,w5mid,w6mid,w7mid,w8mid,w9mid,kl1mid,kl2mid,kl3mid,kl4mid,kl5mid,"u1f41296217e740650e0448b96851a3e2"]
 admsa = "u1f41296217e740650e0448b96851a3e2"
 admin = "u1f41296217e740650e0448b96851a3e2"
 
@@ -204,16 +279,16 @@ wait = {
     'leaveRoom':True,
     'timeline':False,
     'autoAdd':True,
-    'message':"✟Ƥɾøтøтуρє✟一�:緑\n\nCreator : Http://line.me/ti/p/~muhmursalind",
+    'message':"TOME BotLine Thailand\n\nCreator : Http://line.me/ti/p/~dmc.072_tome",
     "lang":"JP",
-    "comment":"Auto Like By ✟Ƥɾøтøтуρє✟一�:緑\n\nCreator : Http://line.me/ti/p/~muhmursalind",
+    "comment":"Auto Like By TOME BotLine Thailand:緑\n\nCreator : Http://line.me/ti/p/~dmc.072_tome",
     "commentOn":False,
     "likeOn":False,
     "commentBlack":{},
     "wblack":False,
     "dblack":False,
     "clock":False,
-    "cNames":"",
+    "cNames":"Tome botline",
     "blacklist":{},
     "wblacklist":False,
     "dblacklist":False,
@@ -297,7 +372,7 @@ def bot(op):
             msg = op.message
             if msg.toType == 0:
                 msg.to = msg.from_
-                if msg.from_ == "u1f41296217e740650e0448b96851a3e2":
+                if msg.from_ == "MY MID":
                     if "join:" in msg.text:
                         list_ = msg.text.split(":")
                         try:
@@ -620,19 +695,19 @@ def bot(op):
             elif "Pro28" == msg.text:
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': l1mid}
-                l1.sendMessage(msg)
+                kl1.sendMessage(msg)
             elif "Pro29" == msg.text:
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': l2mid}
-                l2.sendMessage(msg)
+                kl2.sendMessage(msg)
             elif "Pro30" == msg.text:
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': l3mid}
-                l3.sendMessage(msg)
+                kl3.sendMessage(msg)
             elif "Pro31" == msg.text:
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': l4mid}
-                l4.sendMessage(msg)
+                kl4.sendMessage(msg)
             elif "Pro32" == msg.text:
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': l5mid}
@@ -751,15 +826,15 @@ def bot(op):
             elif "Pro27 mid" == msg.text:
                 w9.sendText(msg.to,w9mid)
             elif "Pro28 mid" == msg.text:
-                l1.sendText(msg.to,l1mid)
+                kl1.sendText(msg.to,l1mid)
             elif "Pro29 mid" == msg.text:
-                l2.sendText(msg.to,l2mid)
+                kl2.sendText(msg.to,l2mid)
             elif "Pro30 mid" == msg.text:
-                l3.sendText(msg.to,l3mid)
+                kl3.sendText(msg.to,l3mid)
             elif "Pro31 mid" == msg.text:
-                l4.sendText(msg.to,l4mid)
+                kl4.sendText(msg.to,l4mid)
             elif "Pro32 mid" == msg.text:
-                l5.sendText(msg.to,l5mid)
+                kl5.sendText(msg.to,l5mid)
             elif "All mid" == msg.text:
                 ki.sendText(msg.to,kimid)
                 ki2.sendText(msg.to,ki2mid)
@@ -788,11 +863,11 @@ def bot(op):
                 w7.sendText(msg.to,w7mid)
                 w8.sendText(msg.to,w8mid)
                 w9.sendText(msg.to,w9mid)
-                l1.sendText(msg.to,l1mid)
-                l2.sendText(msg.to,l2mid)
-                l3.sendText(msg.to,l3mid)
-                l4.sendText(msg.to,l4mid)
-                l5.sendText(msg.to,l5mid)
+                kl1.sendText(msg.to,kl1mid)
+                kl2.sendText(msg.to,kl2mid)
+                kl3.sendText(msg.to,kl3mid)
+                kl4.sendText(msg.to,kl4mid)
+                kl5.sendText(msg.to,kl5mid)
             elif "Timeline: " in msg.text:
                 tl_text = msg.text.replace("Timeline: ","")
                 cl.sendText(msg.to,"line://home/post?userMid="+mid+"&postId="+cl.new_post(tl_text)["result"]["post"]["postInfo"]["postId"])
@@ -907,23 +982,23 @@ def bot(op):
                     profile.displayName = string
                     w9.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 20:
-                    profile = l1.getProfile()
+                    profile = kl1.getProfile()
                     profile.displayName = string
                     l1.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 20:
-                    profile = l2.getProfile()
+                    profile = kl2.getProfile()
                     profile.displayName = string
                     l2.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 20:
-                    profile = l3.getProfile()
+                    profile = kl3.getProfile()
                     profile.displayName = string
                     l3.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 20:
-                    profile = l4.getProfile()
+                    profile = kl4.getProfile()
                     profile.displayName = string
                     l4.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 20:
-                    profile = l5.getProfile()
+                    profile = kl5.getProfile()
                     profile.displayName = string
                     l5.updateProfile(profile)
             elif "Allbio: " in msg.text:
@@ -1037,25 +1112,25 @@ def bot(op):
                     profile.statusMessage = string
                     w9.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 500:
-                    profile = l1.getProfile()
+                    profile = kl1.getProfile()
                     profile.statusMessage = string
-                    l1.updateProfile(profile)
+                    kl1.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 500:
-                    profile = l2.getProfile()
+                    profile = kl2.getProfile()
                     profile.statusMessage = string
-                    l2.updateProfile(profile)
+                    kl2.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 500:
-                    profile = l3.getProfile()
+                    profile = kl3.getProfile()
                     profile.statusMessage = string
-                    l3.updateProfile(profile)
+                    kl3.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 500:
-                    profile = l4.getProfile()
+                    profile = kl4.getProfile()
                     profile.statusMessage = string
-                    l4.updateProfile(profile)
+                    kl4.updateProfile(profile)
                 if len(string.decode('utf-8')) <= 500:
-                    profile = l5.getProfile()
+                    profile = kl5.getProfile()
                     profile.statusMessage = string
-                    l5.updateProfile(profile)
+                    kl5.updateProfile(profile)
 
 #---------------------------------------------------------
             elif "1pro: " in msg.text:
