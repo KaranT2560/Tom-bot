@@ -9,6 +9,66 @@ cl = LINETCR.LINE()
 cl.login(qr=True)
 cl.loginResult()
 
+ki = LINETCR.LINE()
+ki.login(qr=True)
+ki.loginResult()
+
+ki2 = LINETCR.LINE()
+ki2.login(qr=True)
+ki2.loginResult() 
+
+ki2 = LINETCR.LINE()
+ki.login(qr=True)
+ki2.loginResult() 
+
+ki3 = LINETCR.LINE()
+ki3.login(qr=True)
+ki3.loginResult()
+
+ki4 = LINETCR.LINE()
+ki4.login(qr=True)
+ki4.loginResult()
+
+ki5 = LINETCR.LINE()
+ki5.login(qr=True)
+ki5.loginResult() 
+
+ki6 = LINETCR.LINE()
+ki6.login(qr=True)
+ki6.loginResult()
+
+ki7 = LINETCR.LINE()
+ki7.login(qr=True)
+ki7.loginResult()
+
+ki8 = LINETCR.LINE()
+ki8.login(qr=True)
+ki8.loginResult()
+
+ki9 = LINETCR.LINE()
+ki9.login(qr=True)
+ki9.loginResult()
+
+ki10 = LINETCR.LINE()
+ki10.login(qr=True)
+ki10.loginResult()
+
+ki11 = LINETCR.LINE()
+ki11.login(qr=True)
+ki11.loginResult()
+
+ki12 = LINETCR.LINE()
+ki12.login(qr=True)
+ki12.loginResult()
+
+ki13 = LINETCR.LINE()
+ki13.login(qr=True)
+ki14.loginResult()
+
+ki14 = LINETCR.LINE()
+ki14.login(qr=True)
+ki14.loginResult()
+
 #cl = LINETCR.LINE()
 #cl.login(token="authToken Kamu")
 #cl.loginResult()
@@ -18,53 +78,53 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 helpMessage ="""||=====  F O R   U S E R  =====||
-||��✒ Mention       - Mention All Member Group
-||��✒ Lurking       - Set Point Read
-||��✒ Result        - Reading Point
-||��✒ Ginfo         - Info Grup
+||✒ Mention       - Mention All Member Group
+||✒ Lurking       - Set Point Read
+||✒ Result        - Reading Point
+||✒ Ginfo         - Info Grup
 ||===== F O R   A D M I N =====||
-||��✒ Glist         - List Group BOT
-||��✒ Cancel        - Cancel All Pending Grup
-||��✒ Mid @         - Get MID 
-||��✒ Invite        - Invite Via Send Contact
-||��✒ Invite:       - Via MID
-||��✒ Whitelist @   - Via Tag
-||��✒ Whitelist:    - Via Mid
-||��✒ Whitelist     - Via Send Contact
-||��✒ Blacklist @   - Via Tag
-||��✒ Blacklist:    - Via Mid
-||��✒ Blacklist     - Via Send Contact
-||��✒ Clear ban     - Delete All Blacklist
-||��✒ Link on       - Open QR
-||��✒ Link off      - Close QR
-||��✒ Gurl          - Open QR And Get Link
-||��✒ Url           - Get QR Link
-||��✒ Gname         - Change Name Group
-||��✒ Banlist       - Cek Tersangka Kriminal
-||��✒ Details grup  - Via Gid
-||��✒ Inviteme:     - Via Gid
-||��✒ Info grup
-||��✒ Clear grup
+||✒ Glist         - List Group BOT
+||✒ Cancel        - Cancel All Pending Grup
+||✒ Mid @         - Get MID 
+||✒ Invite        - Invite Via Send Contact
+||✒ Invite:       - Via MID
+||✒ Whitelist @   - Via Tag
+||✒ Whitelist:    - Via Mid
+||✒ Whitelist     - Via Send Contact
+||✒ Blacklist @   - Via Tag
+||✒ Blacklist:    - Via Mid
+||✒ Blacklist     - Via Send Contact
+||✒ Clear ban     - Delete All Blacklist
+||✒ Link on       - Open QR
+||✒ Link off      - Close QR
+||✒ Gurl          - Open QR And Get Link
+||✒ Url           - Get QR Link
+||✒ Gname         - Change Name Group
+||✒ Banlist       - Cek Tersangka Kriminal
+||✒ Details grup  - Via Gid
+||✒ Inviteme:     - Via Gid
+||✒ Info grup
+||✒ Clear grup
 ||===== F O R  K I C K E R =====||
-||��✒ Nuke
-||��✒ Ratakan
-||��✒ Kick @        - Via Tag
-||��✒ Kick:         - Via MID
+||✒ Nuke
+||✒ Ratakan
+||✒ Kick @        - Via Tag
+||✒ Kick:         - Via MID
 ||===== F O R  P L A Y E R =====||
-||��✒ Bc:ct 
-||��✒ Bc:grup
-||��✒ Block @
-||��✒ Blocklist
-||��✒ Spam on/off
-||��✒ Uni
-||��✒ Bot:ct        - Broadcast to All Contact BOT
-||��✒ Bot:grup      - Broadcast to All Grup Joined BOT
-||��✒ Allname:      - Change All Name BOT
-||��✒ Allbio:       - Change All Bio BOT
-||��✒ Bot sp        - Tes Speed BOT
-||��✒ Speed         - Tes Speed
-||��✒ Mycopy @      - Copy Profile 
-||��✒ Mybackup @    - Backup Profile
+||✒ Bc:ct 
+||✒ Bc:grup
+||✒ Block @
+||✒ Blocklist
+||✒ Spam on/off
+||✒ Uni
+||✒ Bot:ct        - Broadcast to All Contact BOT
+||✒ Bot:grup      - Broadcast to All Grup Joined BOT
+||✒ Allname:      - Change All Name BOT
+||✒ Allbio:       - Change All Bio BOT
+||✒ Bot sp        - Tes Speed BOT
+||✒ Speed         - Tes Speed
+||✒ Mycopy @      - Copy Profile  
+||✒ Mybackup @    - Backup Profile
 ||========================||
 
 
