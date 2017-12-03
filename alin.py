@@ -49,25 +49,25 @@ ki9 = LINETCR.LINE()
 ki9.login(qr=True)
 ki9.loginResult()
 
-ki10 = LINETCR.LINE()
-ki10.login(qr=True)
-ki10.loginResult()
+k1 = LINETCR.LINE()
+k1.login(qr=True)
+k1.loginResult()
 
-ki11 = LINETCR.LINE()
-ki11.login(qr=True)
-ki11.loginResult()
+k2 = LINETCR.LINE()
+k2.login(qr=True)
+k2.loginResult()
 
-ki12 = LINETCR.LINE()
-ki12.login(qr=True)
-ki12.loginResult()
+k3 = LINETCR.LINE()
+k3.login(qr=True)
+k3.loginResult()
 
-ki13 = LINETCR.LINE()
-ki13.login(qr=True)
-ki14.loginResult()
+k4 = LINETCR.LINE()
+k4.login(qr=True)
+k4.loginResult()
 
-ki14 = LINETCR.LINE()
-ki14.login(qr=True)
-ki14.loginResult()
+k5 = LINETCR.LINE()
+k5.login(qr=True)
+k5.loginResult()
 
 #cl = LINETCR.LINE()
 #cl.login(token="authToken Kamu")
@@ -127,7 +127,6 @@ helpMessage ="""||=====  F O R   U S E R  =====||
 ||✒ Mybackup @    - Backup Profile
 ||========================||
 
-
 ||===== S E T T I G S =====||          
 || [Like:on/off]     
 || [Add on/off] 	 
@@ -153,10 +152,10 @@ helpMessage ="""||=====  F O R   U S E R  =====||
 
                ✯==== Creator ====✯
 	
-  Http://line.me/ti/p/~muhmursalind
+  Http://line.me/ti/p/~dmc.072_tome
 
                     ATTENTION!!!!
-  Creator nya sok tau bahasa inggris :V
+  Creator Tome BotLine Thailand 
 """
 helo=""
 
