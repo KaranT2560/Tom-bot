@@ -1,9 +1,12 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -
 
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
+from io import StringIO
 from datetime import datetime
-import time,random,sys,json,codecs,threading,glob,requests,urllib
+import time,random,sys,json,codecs,threading,glob,requests,urllib,sys
+import re,string,os
+import os.path,sys,urllib,shutil,subprocess 
 
 cl = LINETCR.LINE()
 cl.login(qr=True)
@@ -18,55 +21,54 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 helpMessage ="""||=====  F O R   U S E R  =====||
-||��✒ Mention       - Mention All Member Group
-||��✒ Lurking       - Set Point Read
-||��✒ Result        - Reading Point
-||��✒ Ginfo         - Info Grup
+||✒ Mention       - Mention All Member Group
+||✒ Lurking       - Set Point Read
+||✒ Result        - Reading Point
+||✒ Ginfo         - Info Grup
 ||===== F O R   A D M I N =====||
-||��✒ Glist         - List Group BOT
-||��✒ Cancel        - Cancel All Pending Grup
-||��✒ Mid @         - Get MID 
-||��✒ Invite        - Invite Via Send Contact
-||��✒ Invite:       - Via MID
-||��✒ Whitelist @   - Via Tag
-||��✒ Whitelist:    - Via Mid
-||��✒ Whitelist     - Via Send Contact
-||��✒ Blacklist @   - Via Tag
-||��✒ Blacklist:    - Via Mid
-||��✒ Blacklist     - Via Send Contact
-||��✒ Clear ban     - Delete All Blacklist
-||��✒ Link on       - Open QR
-||��✒ Link off      - Close QR
-||��✒ Gurl          - Open QR And Get Link
-||��✒ Url           - Get QR Link
-||��✒ Gname         - Change Name Group
-||��✒ Banlist       - Cek Tersangka Kriminal
-||��✒ Details grup  - Via Gid
-||��✒ Inviteme:     - Via Gid
-||��✒ Info grup
-||��✒ Clear grup
+||✒ Glist         - List Group BOT
+||✒ Cancel        - Cancel All Pending Grup
+||✒ Mid @         - Get MID 
+||✒ Invite        - Invite Via Send Contact
+||✒ Invite:       - Via MID
+||✒ Whitelist @   - Via Tag
+||✒ Whitelist:    - Via Mid
+||✒ Whitelist     - Via Send Contact
+||✒ Blacklist @   - Via Tag
+||✒ Blacklist:    - Via Mid
+||✒ Blacklist     - Via Send Contact
+||✒ Clear ban     - Delete All Blacklist
+||✒ Link on       - Open QR
+||✒ Link off      - Close QR
+||✒ Gurl          - Open QR And Get Link
+||✒ Url           - Get QR Link
+||✒ Gname         - Change Name Group
+||✒ Banlist       - Cek Tersangka Kriminal
+||✒ Details grup  - Via Gid
+||✒ Inviteme:     - Via Gid
+||✒ Info grup
+||✒ Clear grup
 ||===== F O R  K I C K E R =====||
-||��✒ Nuke
-||��✒ Ratakan
-||��✒ Kick @        - Via Tag
-||��✒ Kick:         - Via MID
+||✒ Nuke
+||✒ Ratakan
+||✒ Kick @        - Via Tag
+||✒ Kick:         - Via MID
 ||===== F O R  P L A Y E R =====||
-||��✒ Bc:ct 
-||��✒ Bc:grup
-||��✒ Block @
-||��✒ Blocklist
-||��✒ Spam on/off
-||��✒ Uni
-||��✒ Bot:ct        - Broadcast to All Contact BOT
-||��✒ Bot:grup      - Broadcast to All Grup Joined BOT
-||��✒ Allname:      - Change All Name BOT
-||��✒ Allbio:       - Change All Bio BOT
-||��✒ Bot sp        - Tes Speed BOT
-||��✒ Speed         - Tes Speed
-||��✒ Mycopy @      - Copy Profile 
-||��✒ Mybackup @    - Backup Profile
+||✒ Bc:ct 
+||✒ Bc:grup
+||✒ Block @
+||✒ Blocklist
+||✒ Spam on/off
+||✒ Uni
+||✒ Bot:ct        - Broadcast to All Contact BOT
+||✒ Bot:grup      - Broadcast to All Grup Joined BOT
+||✒ Allname:      - Change All Name BOT
+||✒ Allbio:       - Change All Bio BOT
+||✒ Bot sp        - Tes Speed BOT
+||✒ Speed         - Tes Speed
+||✒ Mycopy @      - Copy Profile 
+||✒ Mybackup @    - Backup Profile
 ||========================||
-
 
 ||===== S E T T I G S =====||          
 || [Like:on/off]     
@@ -100,7 +102,7 @@ helpMessage ="""||=====  F O R   U S E R  =====||
 """
 helo=""
 
-KAC=[cl,ki,ki2,ki3,ki4,ki5,ki6,ki7,ki8,ki9,k1,k2,k3,k4,k5,k6,k6,k8,k9,w1,w2,w3,w4,w5,w6,w7,w8,w9,l1,l2,l3,l4,l5]
+KAC=[cl,ki,ki2,ki3,ki4,ki5,ki6,ki7,""]
 mid = cl.getProfile().mid
 kimid = ki.getProfile().mid
 ki2mid = ki2.getProfile().mid
@@ -108,35 +110,35 @@ ki3mid = ki3.getProfile().mid
 ki4mid = ki4.getProfile().mid
 ki5mid = ki5.getProfile().mid
 ki6mid = ki6.getProfile().mid
-ki7mid = ki7.getProfile().mid
-ki8mid = ki8.getProfile().mid
-ki9mid = ki9.getProfile().mid
-k1mid = k1.getProfile().mid
-k2mid = k2.getProfile().mid
-k3mid = k3.getProfile().mid
-k4mid = k4.getProfile().mid
-k5mid = k5.getProfile().mid
-k6mid = k6.getProfile().mid
-k7mid = k7.getProfile().mid
-k8mid = k8.getProfile().mid
-k9mid = k9.getProfile().mid
-w1mid = w1.getProfile().mid
-w2mid = w2.getProfile().mid
-w3mid = w3.getProfile().mid
-w4mid = w4.getProfile().mid
-w5mid = w5.getProfile().mid
-w6mid = w6.getProfile().mid
-w7mid = w7.getProfile().mid
-w8mid = w8.getProfile().mid
-w9mid = w9.getProfile().mid
-l1mid = l1.getProfile().mid
-l2mid = l2.getProfile().mid
-l3mid = l3.getProfile().mid
-l4mid = l4.getProfile().mid
-l5mid = l5.getProfile().mid
-Bots = [mid,kimid,ki2mid,ki3mid,ki4mid,ki5mid,ki6mid,ki7mid,ki8mid,ki9mid,k1mid,k2mid,k3mid,k4mid,k5mid,k6mid,k7mid,k8mid,k9mid,w1mid,w2mid,w3mid,w4mid,w5mid,w6mid,w7mid,w8mid,w9mid,l1mid,l2mid,l3mid,l4mid,l5mid,"u1f41296217e740650e0448b96851a3e2"]
-admsa = "u1f41296217e740650e0448b96851a3e2"
-admin = "u1f41296217e740650e0448b96851a3e2"
+#ki7mid = ki7.getProfile().mid
+#ki8mid = ki8.getProfile().mid
+#ki9mid = ki9.getProfile().mid
+#k1mid = k1.getProfile().mid
+#k2mid = k2.getProfile().mid
+#k3mid = k3.getProfile().mid
+#k4mid = k4.getProfile().mid
+#k5mid = k5.getProfile().mid
+#k6mid = k6.getProfile().mid
+#k7mid = k7.getProfile().mid
+#k8mid = k8.getProfile().mid
+#k9mid = k9.getProfile().mid
+#w1mid = w1.getProfile().mid
+#w2mid = w2.getProfile().mid
+#w3mid = w3.getProfile().mid
+#w4mid = w4.getProfile().mid
+#w5mid = w5.getProfile().mid
+#w6mid = w6.getProfile().mid
+#w7mid = w7.getProfile().mid
+#w8mid = w8.getProfile().mid
+#w9mid = w9.getProfile().mid
+#l1mid = l1.getProfile().mid
+#l2mid = l2.getProfile().mid
+#l3mid = l3.getProfile().mid
+#l4mid = l4.getProfile().mid
+#l5mid = l5.getProfile().mid
+Bots = [mid,kimid,ki2mid,ki3mid,ki4mid,ki5mid,ki6mid,ki7mid,ki8mid,ki9mid,k1mid,k2mid,k3mid,k4mid,k5mid,k6mid,""]
+admsa = ""
+admin = ""
 
 wait = {
     'contact':False,
@@ -372,84 +374,84 @@ def bot(op):
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': ki6mid}
                 ki6.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': ki7mid}
-                ki7.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': ki8mid}
-                ki8.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': ki9mid}
-                ki9.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k1mid}
-                k1.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k2mid}
-                k2.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k3mid}
-                k3.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k4mid}
-                k4.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k5mid}
-                k5.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k6mid}
-                k6.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k7mid}
-                k7.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k8mid}
-                k8.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k9mid}
-                k9.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w1mid}
-                w1.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w2mid}
-                w2.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w3mid}
-                w3.sendMessage(msg) 
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w4mid}
-                w4.sendMessage(msg) 
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w5mid}
-                w5.sendMessage(msg) 
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w6mid}
-                w6.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w7mid}
-                w7.sendMessage(msg) 
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w8mid}
-                w8.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w9mid}
-                w9.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l1mid}
-                l1.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l2mid}
-                l2.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l3mid}
-                l3.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l4mid}
-                l4.sendMessage(msg)
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l5mid}
-                l5.sendMessage(msg)
+#                msg.contentType = 13
+ #               msg.contentMetadata = {'mid': ki7mid}
+ #               ki7.sendMessage(msg)
+  #              msg.contentType = 13
+   #             msg.contentMetadata = {'mid': ki8mid}
+    #            ki8.sendMessage(msg)
+     #           msg.contentType = 13
+      #          msg.contentMetadata = {'mid': ki9mid}
+        #        ki9.sendMessage(msg)
+       #         msg.contentType = 13
+#                msg.contentMetadata = {'mid': k1mid}
+ #               k1.sendMessage(msg)
+  #              msg.contentType = 13
+   #             msg.contentMetadata = {'mid': k2mid}
+    #            k2.sendMessage(msg)
+     #           msg.contentType = 13
+      #          msg.contentMetadata = {'mid': k3mid}
+       #         k3.sendMessage(msg)
+        #        msg.contentType = 13
+         #       msg.contentMetadata = {'mid': k4mid}
+          #      k4.sendMessage(msg)
+           #     msg.contentType = 13
+            #    msg.contentMetadata = {'mid': k5mid}
+             #   k5.sendMessage(msg)
+              #  msg.contentType = 13
+               # msg.contentMetadata = {'mid': k6mid}
+#                k6.sendMessage(msg)
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': k7mid}
+   #             k7.sendMessage(msg)
+    #            msg.contentType = 13
+     #           msg.contentMetadata = {'mid': k8mid}
+      #          k8.sendMessage(msg)
+       #         msg.contentType = 13
+        #        msg.contentMetadata = {'mid': k9mid}
+        #        k9.sendMessage(msg)
+         #       msg.contentType = 13
+          #      msg.contentMetadata = {'mid': w1mid}
+           #     w1.sendMessage(msg)
+            #    msg.contentType = 13
+             #   msg.contentMetadata = {'mid': w2mid}
+              #  w2.sendMessage(msg)
+               # msg.contentType = 13
+#                msg.contentMetadata = {'mid': w3mid}
+#                w3.sendMessage(msg) 
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': w4mid}
+   #             w4.sendMessage(msg) 
+   #             msg.contentType = 13
+    #            msg.contentMetadata = {'mid': w5mid}
+     #           w5.sendMessage(msg) 
+      #          msg.contentType = 13
+       #         msg.contentMetadata = {'mid': w6mid}
+        #        w6.sendMessage(msg)
+         #       msg.contentType = 13
+          #      msg.contentMetadata = {'mid': w7mid}
+           #     w7.sendMessage(msg) 
+            #    msg.contentType = 13
+             #   msg.contentMetadata = {'mid': w8mid}
+              #  w8.sendMessage(msg)
+               # msg.contentType = 13
+#                msg.contentMetadata = {'mid': w9mid}
+ #               w9.sendMessage(msg)
+  #              msg.contentType = 13
+   #             msg.contentMetadata = {'mid': l1mid}
+     #           l1.sendMessage(msg)
+    #            msg.contentType = 13
+     #           msg.contentMetadata = {'mid': l2mid}
+      #          l2.sendMessage(msg)
+       #         msg.contentType = 13
+        #        msg.contentMetadata = {'mid': l3mid}
+         #       l3.sendMessage(msg)
+          #      msg.contentType = 13
+           #     msg.contentMetadata = {'mid': l4mid}
+            #    l4.sendMessage(msg)
+             #   msg.contentType = 13
+              #  msg.contentMetadata = {'mid': l5mid}
+               # l5.sendMessage(msg)
             elif "Pro1" == msg.text:
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': kimid}
@@ -474,110 +476,110 @@ def bot(op):
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': ki6mid}
                 ki6.sendMessage(msg)
-            elif "Pro7" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': ki7mid}
-                ki7.sendMessage(msg)
-            elif "Pro8" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': ki8mid}
-                ki8.sendMessage(msg)
-            elif "Pro9" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': ki9mid}
-                ki9.sendMessage(msg)
-            elif "Pro10" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k1mid}
-                k1.sendMessage(msg)
-            elif "Pro11" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k2mid}
-                k2.sendMessage(msg)
-            elif "Pro12" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k3mid}
-                k3.sendMessage(msg)
-            elif "Pro13" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k4mid}
-                k4.sendMessage(msg)
-            elif "Pro14" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k5mid}
-                k5.sendMessage(msg)
-            elif "Pro15" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k6mid}
-                k6.sendMessage(msg)
-            elif "Pro16" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k7mid}
-                k7.sendMessage(msg)
-            elif "Pro17" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k8mid}
-                k8.sendMessage(msg)
-            elif "Pro18" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': k9mid}
-                k9.sendMessage(msg)
-            elif "Pro19" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w1mid}
-                w1.sendMessage(msg)
-            elif "Pro20" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w2mid}
-                w2.sendMessage(msg)
-            elif "Pro21" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w3mid}
-                w3.sendMessage(msg) 
-            elif "Pro22" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w4mid}
-                w4.sendMessage(msg) 
-            elif "Pro23" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w5mid}
-                w5.sendMessage(msg) 
-            elif "Pro24" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w6mid}
-                w6.sendMessage(msg)
-            elif "Pro25" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w7mid}
-                w7.sendMessage(msg) 
-            elif "Pro26" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w8mid}
-                w8.sendMessage(msg)
-            elif "Pro27" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': w9mid}
-                w9.sendMessage(msg)
-            elif "Pro28" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l1mid}
-                l1.sendMessage(msg)
-            elif "Pro29" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l2mid}
-                l2.sendMessage(msg)
-            elif "Pro30" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l3mid}
-                l3.sendMessage(msg)
-            elif "Pro31" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l4mid}
-                l4.sendMessage(msg)
-            elif "Pro32" == msg.text:
-                msg.contentType = 13
-                msg.contentMetadata = {'mid': l5mid}
-                l5.sendMessage(msg)
+#            elif "Pro7" == msg.text:
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': ki7mid}
+   #             ki7.sendMessage(msg)
+    #        elif "Pro8" == msg.text:
+     #           msg.contentType = 13
+      #          msg.contentMetadata = {'mid': ki8mid}
+       #         ki8.sendMessage(msg)
+        #    elif "Pro9" == msg.text:
+         #       msg.contentType = 13
+          #      msg.contentMetadata = {'mid': ki9mid}
+           #     ki9.sendMessage(msg)
+            #elif "Pro10" == msg.text:
+             #   msg.contentType = 13
+              #  msg.contentMetadata = {'mid': k1mid}
+               # k1.sendMessage(msg)
+#            elif "Pro11" == msg.text:
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': k2mid}
+  #              k2.sendMessage(msg)
+   #         elif "Pro12" == msg.text:
+    #            msg.contentType = 13
+     #           msg.contentMetadata = {'mid': k3mid}
+      #          k3.sendMessage(msg)
+       #     elif "Pro13" == msg.text:
+        #        msg.contentType = 13
+         #       msg.contentMetadata = {'mid': k4mid}
+          #      k4.sendMessage(msg)
+           # elif "Pro14" == msg.text:
+            #    msg.contentType = 13
+             #   msg.contentMetadata = {'mid': k5mid}
+              #  k5.sendMessage(msg)
+#            elif "Pro15" == msg.text:
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': k6mid}
+   #             k6.sendMessage(msg)
+    #        elif "Pro16" == msg.text:
+     #           msg.contentType = 13
+      #          msg.contentMetadata = {'mid': k7mid}
+       #         k7.sendMessage(msg)
+        #    elif "Pro17" == msg.text:
+         #       msg.contentType = 13
+          #      msg.contentMetadata = {'mid': k8mid}
+           #     k8.sendMessage(msg)
+            #elif "Pro18" == msg.text:
+             #   msg.contentType = 13
+              #  msg.contentMetadata = {'mid': k9mid}
+               # k9.sendMessage(msg)
+#            elif "Pro19" == msg.text:
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': w1mid}
+   #             w1.sendMessage(msg)
+    #        elif "Pro20" == msg.text:
+     #           msg.contentType = 13
+      #          msg.contentMetadata = {'mid': w2mid}
+       #         w2.sendMessage(msg)
+        #    elif "Pro21" == msg.text:
+         #       msg.contentType = 13
+          #      msg.contentMetadata = {'mid': w3mid}
+           #     w3.sendMessage(msg) 
+            #elif "Pro22" == msg.text:
+             #   msg.contentType = 13
+              #  msg.contentMetadata = {'mid': w4mid}
+               # w4.sendMessage(msg)
+#            elif "Pro23" == msg.text:
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': w5mid}
+   #             w5.sendMessage(msg) 
+    #        elif "Pro24" == msg.text:
+     #           msg.contentType = 13
+      #          msg.contentMetadata = {'mid': w6mid}
+       #         w6.sendMessage(msg)
+        #    elif "Pro25" == msg.text:
+         #       msg.contentType = 13
+          #      msg.contentMetadata = {'mid': w7mid}
+           #     w7.sendMessage(msg) 
+            #elif "Pro26" == msg.text:
+             #   msg.contentType = 13
+              #  msg.contentMetadata = {'mid': w8mid}
+               # w8.sendMessage(msg)
+#            elif "Pro27" == msg.text:
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': w9mid}
+   #             w9.sendMessage(msg)
+    #        elif "Pro28" == msg.text:
+     #           msg.contentType = 13
+      #          msg.contentMetadata = {'mid': l1mid}
+       #         l1.sendMessage(msg)
+        #    elif "Pro29" == msg.text:
+         #       msg.contentType = 13
+          #      msg.contentMetadata = {'mid': l2mid}
+          #      l2.sendMessage(msg)
+           # elif "Pro30" == msg.text:
+            #    msg.contentType = 13
+             #   msg.contentMetadata = {'mid': l3mid}
+              #  l3.sendMessage(msg)
+#            elif "Pro31" == msg.text:
+ #               msg.contentType = 13
+  #              msg.contentMetadata = {'mid': l4mid}
+   #             l4.sendMessage(msg)
+   #         elif "Pro32" == msg.text:
+    #            msg.contentType = 13
+     #           msg.contentMetadata = {'mid': l5mid}
+      #          l5.sendMessage(msg)
             elif msg.text in ["Bot1 Gift","Bot1 gift"]:
                 msg.contentType = 9
                 msg.contentMetadata={'PRDID': '3b92ccf5-54d3-4765-848f-c9ffdc1da020',
@@ -649,58 +651,58 @@ def bot(op):
                 ki5.sendText(msg.to,ki5mid)
             elif "Pro6 mid" == msg.text:
                 ki6.sendText(msg.to,ki6mid)
-            elif "Pro7 mid" == msg.text:
-                ki7.sendText(msg.to,ki7mid)
-            elif "Pro8 mid" == msg.text:
-                ki8.sendText(msg.to,ki8mid)
-            elif "Pro9 mid" == msg.text:
-                ki9.sendText(msg.to,ki9mid)
-            elif "Pro10 mid" == msg.text:
-                k1.sendText(msg.to,k1mid)
-            elif "Pro11 mid" == msg.text:
-                k2.sendText(msg.to,k2mid)
-            elif "Pro12 mid" == msg.text:
-                k3.sendText(msg.to,k3mid)
-            elif "Pro13 mid" == msg.text:
-                k4.sendText(msg.to,k4mid)
-            elif "Pro14 mid" == msg.text:
-                k5.sendText(msg.to,k5mid)
-            elif "Pro15 mid" == msg.text:
-                k6.sendText(msg.to,k6mid)
-            elif "Pro16 mid" == msg.text:
-                k7.sendText(msg.to,k7mid)
-            elif "Pro17 mid" == msg.text:
-                k8.sendText(msg.to,k8mid)
-            elif "Pro18 mid" == msg.text:
-                k9.sendText(msg.to,k9mid)
-            elif "Pro19 mid" == msg.text:
-                w1.sendText(msg.to,w1mid)
-            elif "Pro20 mid" == msg.text:
-                w2.sendText(msg.to,w2mid)
-            elif "Pro21 mid" == msg.text:
-                w3.sendText(msg.to,w3mid)
-            elif "Pro22 mid" == msg.text:
-                w4.sendText(msg.to,w4mid)
-            elif "Pro23 mid" == msg.text:
-                w5.sendText(msg.to,w5mid)
-            elif "Pro24 mid" == msg.text:
-                w6.sendText(msg.to,w6mid)
-            elif "Pro25 mid" == msg.text:
-                w7.sendText(msg.to,w7mid)
-            elif "Pro26 mid" == msg.text:
-                w8.sendText(msg.to,w8mid)
-            elif "Pro27 mid" == msg.text:
-                w9.sendText(msg.to,w9mid)
-            elif "Pro28 mid" == msg.text:
-                l1.sendText(msg.to,l1mid)
-            elif "Pro29 mid" == msg.text:
-                l2.sendText(msg.to,l2mid)
-            elif "Pro30 mid" == msg.text:
-                l3.sendText(msg.to,l3mid)
-            elif "Pro31 mid" == msg.text:
-                l4.sendText(msg.to,l4mid)
-            elif "Pro32 mid" == msg.text:
-                l5.sendText(msg.to,l5mid)
+#            elif "Pro7 mid" == msg.text:
+ #               ki7.sendText(msg.to,ki7mid)
+  #          elif "Pro8 mid" == msg.text:
+   #             ki8.sendText(msg.to,ki8mid)
+    #        elif "Pro9 mid" == msg.text:
+     #           ki9.sendText(msg.to,ki9mid)
+      #      elif "Pro10 mid" == msg.text:
+       #         k1.sendText(msg.to,k1mid)
+        #    elif "Pro11 mid" == msg.text:
+          #      k2.sendText(msg.to,k2mid)
+         #   elif "Pro12 mid" == msg.text:
+          #      k3.sendText(msg.to,k3mid)
+           # elif "Pro13 mid" == msg.text:
+            #    k4.sendText(msg.to,k4mid)
+#            elif "Pro14 mid" == msg.text:
+ #               k5.sendText(msg.to,k5mid)
+  #          elif "Pro15 mid" == msg.text:
+   #             k6.sendText(msg.to,k6mid)
+    #        elif "Pro16 mid" == msg.text:
+     #           k7.sendText(msg.to,k7mid)
+      #      elif "Pro17 mid" == msg.text:
+       #         k8.sendText(msg.to,k8mid)
+        #    elif "Pro18 mid" == msg.text:
+         #       k9.sendText(msg.to,k9mid)
+          #  elif "Pro19 mid" == msg.text:
+           #     w1.sendText(msg.to,w1mid)
+#            elif "Pro20 mid" == msg.text:
+ #               w2.sendText(msg.to,w2mid)
+  #          elif "Pro21 mid" == msg.text:
+   #             w3.sendText(msg.to,w3mid)
+    #        elif "Pro22 mid" == msg.text:
+     #           w4.sendText(msg.to,w4mid)
+      #      elif "Pro23 mid" == msg.text:
+       #         w5.sendText(msg.to,w5mid)
+        #    elif "Pro24 mid" == msg.text:
+        #        w6.sendText(msg.to,w6mid)
+         #   elif "Pro25 mid" == msg.text:
+          #      w7.sendText(msg.to,w7mid)
+           # elif "Pro26 mid" == msg.text:
+            #    w8.sendText(msg.to,w8mid)
+#            elif "Pro27 mid" == msg.text:
+ #               w9.sendText(msg.to,w9mid)
+  #          elif "Pro28 mid" == msg.text:
+   #             l1.sendText(msg.to,l1mid)
+    #        elif "Pro29 mid" == msg.text:
+     #           l2.sendText(msg.to,l2mid)
+     #       elif "Pro30 mid" == msg.text:
+      #          l3.sendText(msg.to,l3mid)
+       #     elif "Pro31 mid" == msg.text:
+        #        l4.sendText(msg.to,l4mid)
+         #   elif "Pro32 mid" == msg.text:
+          #      l5.sendText(msg.to,l5mid)
             elif "All mid" == msg.text:
                 ki.sendText(msg.to,kimid)
                 ki2.sendText(msg.to,ki2mid)
@@ -708,32 +710,32 @@ def bot(op):
                 ki4.sendText(msg.to,ki4mid)
                 ki5.sendText(msg.to,ki5mid)
                 ki6.sendText(msg.to,ki6mid)
-                ki7.sendText(msg.to,ki7mid)
-                ki8.sendText(msg.to,ki8mid)
-                ki9.sendText(msg.to,ki9mid)
-                k1.sendText(msg.to,k1mid)
-                k2.sendText(msg.to,k2mid)
-                k3.sendText(msg.to,k3mid)
-                k4.sendText(msg.to,k4mid)
-                k5.sendText(msg.to,k5mid)
-                k6.sendText(msg.to,k6mid)
-                k7.sendText(msg.to,k7mid)
-                k8.sendText(msg.to,k8mid)
-                k9.sendText(msg.to,k9mid)
-                w1.sendText(msg.to,w1mid)
-                w2.sendText(msg.to,w2mid)
-                w3.sendText(msg.to,w3mid)
-                w4.sendText(msg.to,w4mid)
-                w5.sendText(msg.to,w5mid)
-                w6.sendText(msg.to,w6mid)
-                w7.sendText(msg.to,w7mid)
-                w8.sendText(msg.to,w8mid)
-                w9.sendText(msg.to,w9mid)
-                l1.sendText(msg.to,l1mid)
-                l2.sendText(msg.to,l2mid)
-                l3.sendText(msg.to,l3mid)
-                l4.sendText(msg.to,l4mid)
-                l5.sendText(msg.to,l5mid)
+#                ki7.sendText(msg.to,ki7mid)
+ #               ki8.sendText(msg.to,ki8mid)
+  #              ki9.sendText(msg.to,ki9mid)
+   #             k1.sendText(msg.to,k1mid)
+    #            k2.sendText(msg.to,k2mid)
+     #           k3.sendText(msg.to,k3mid)
+      #          k4.sendText(msg.to,k4mid)
+       #         k5.sendText(msg.to,k5mid)
+       #         k6.sendText(msg.to,k6mid)
+        #        k7.sendText(msg.to,k7mid)
+         #       k8.sendText(msg.to,k8mid)
+          #      k9.sendText(msg.to,k9mid)
+          #      w1.sendText(msg.to,w1mid)
+           #     w2.sendText(msg.to,w2mid)
+            #    w3.sendText(msg.to,w3mid)
+             #   w4.sendText(msg.to,w4mid)
+              #  w5.sendText(msg.to,w5mid)
+               # w6.sendText(msg.to,w6mid)
+#                w7.sendText(msg.to,w7mid)
+#                w8.sendText(msg.to,w8mid)
+ #               w9.sendText(msg.to,w9mid)
+#                l1.sendText(msg.to,l1mid)
+#                l2.sendText(msg.to,l2mid)
+#                l3.sendText(msg.to,l3mid)
+#                l4.sendText(msg.to,l4mid)
+#                l5.sendText(msg.to,l5mid)
             elif "Timeline: " in msg.text:
                 tl_text = msg.text.replace("Timeline: ","")
                 cl.sendText(msg.to,"line://home/post?userMid="+mid+"&postId="+cl.new_post(tl_text)["result"]["post"]["postInfo"]["postId"])
@@ -2069,32 +2071,32 @@ def bot(op):
                                     ki4.cloneContactProfile(target)
                                     ki5.cloneContactProfile(target)
                                     ki6.cloneContactProfile(target)
-                                    ki7.cloneContactProfile(target)
-                                    ki8.cloneContactProfile(target)
-                                    ki9.cloneContactProfile(target)
-                                    k1.cloneContactProfile(target)
-                                    k2.cloneContactProfile(target)
-                                    k3.cloneContactProfile(target)
-                                    k4.cloneContactProfile(target)
-                                    k5.cloneContactProfile(target)
-                                    k6.cloneContactProfile(target)
-                                    k7.cloneContactProfile(target)
-                                    k8.cloneContactProfile(target)
-                                    k9.cloneContactProfile(target)
-                                    w1.cloneContactProfile(target)
-                                    w2.cloneContactProfile(target)
-                                    w3.cloneContactProfile(target)
-                                    w4.cloneContactProfile(target)
-                                    w5.cloneContactProfile(target)
-                                    w6.cloneContactProfile(target)
-                                    w7.cloneContactProfile(target)
-                                    w8.cloneContactProfile(target)
-                                    w9.cloneContactProfile(target)
-                                    l1.cloneContactProfile(target)
-                                    l2.cloneContactProfile(target)
-                                    l3.cloneContactProfile(target)
-                                    l4.cloneContactProfile(target)
-                                    k5.cloneContactProfile(target)
+#                                    ki7.cloneContactProfile(target)
+#                                    ki8.cloneContactProfile(target)
+ #                                   ki9.cloneContactProfile(target)
+  #                                  k1.cloneContactProfile(target)
+   #                                 k2.cloneContactProfile(target)
+    #                                k3.cloneContactProfile(target)
+     #                               k4.cloneContactProfile(target)
+      #                              k5.cloneContactProfile(target)
+       #                             k6.cloneContactProfile(target)
+        #                            k7.cloneContactProfile(target)
+         #                           k8.cloneContactProfile(target)
+          #                          k9.cloneContactProfile(target)
+           #                         w1.cloneContactProfile(target)
+            #                        w2.cloneContactProfile(target)
+             #                       w3.cloneContactProfile(target)
+              #                      w4.cloneContactProfile(target)
+               #                     w5.cloneContactProfile(target)
+                #                    w6.cloneContactProfile(target)
+                 #                   w7.cloneContactProfile(target)
+                  #                  w8.cloneContactProfile(target)
+                   #                 w9.cloneContactProfile(target)
+                    #                l1.cloneContactProfile(target)
+                     #               l2.cloneContactProfile(target)
+                      #              l3.cloneContactProfile(target)
+                       #             l4.cloneContactProfile(target)
+                        #            k5.cloneContactProfile(target)
                                     cl.sendText(msg.to, "Sukses Copy Profile")
                                 except Exception as e:
                                     print e
@@ -2117,62 +2119,62 @@ def bot(op):
                     ki3.updateProfile(backup)
                     ki4.updateDisplayPicture(backup.pictureStatus)
                     ki4.updateProfile(backup)
-                    ki5.updateDisplayPicture(backup.pictureStatus)
-                    ki5.updateProfile(backup)
+                    ki5.updateDisplayPicture(backup.pictureStatus)  
+                    ki5.updateProfile(backup) 
                     ki6.updateDisplayPicture(backup.pictureStatus)
                     ki6.updateProfile(backup)
-                    ki7.updateDisplayPicture(backup.pictureStatus)
-                    ki7.updateProfile(backup)
-                    ki8.updateDisplayPicture(backup.pictureStatus)
-                    ki8.updateProfile(backup)
-                    ki9.updateDisplayPicture(backup.pictureStatus)
-                    ki9.updateProfile(backup)
-                    k1.updateDisplayPicture(backup.pictureStatus)
-                    k1.updateProfile(backup)
-                    k2.updateDisplayPicture(backup.pictureStatus)
-                    k2.updateProfile(backup)
-                    k3.updateDisplayPicture(backup.pictureStatus)
-                    k3.updateProfile(backup)
-                    k4.updateDisplayPicture(backup.pictureStatus)
-                    k4.updateProfile(backup)
-                    k5.updateDisplayPicture(backup.pictureStatus)
-                    k5.updateProfile(backup)
-                    k6.updateDisplayPicture(backup.pictureStatus)
-                    k6.updateProfile(backup)
-                    k7.updateDisplayPicture(backup.pictureStatus)
-                    k7.updateProfile(backup)
-                    k8.updateDisplayPicture(backup.pictureStatus)
-                    k8.updateProfile(backup)
-                    k9.updateDisplayPicture(backup.pictureStatus)
-                    k9.updateProfile(backup)
-                    w1.updateDisplayPicture(backup.pictureStatus)
-                    w1.updateProfile(backup)
-                    w2.updateDisplayPicture(backup.pictureStatus)
-                    w2.updateProfile(backup)
-                    w3.updateDisplayPicture(backup.pictureStatus)
-                    w3.updateProfile(backup)
-                    w4.updateDisplayPicture(backup.pictureStatus)
-                    w4.updateProfile(backup)
-                    w5.updateDisplayPicture(backup.pictureStatus)
-                    w5.updateProfile(backup)
-                    w6.updateDisplayPicture(backup.pictureStatus)
-                    w6.updateProfile(backup)
-                    w7.updateDisplayPicture(backup.pictureStatus)
-                    w7.updateProfile(backup)
-                    w8.updateDisplayPicture(backup.pictureStatus)
-                    w8.updateProfile(backup)
-                    w9.updateDisplayPicture(backup.pictureStatus)
-                    w9.updateProfile(backup)
-                    l1.updateDisplayPicture(backup.pictureStatus)
-                    l1.updateProfile(backup)
-                    l2.updateDisplayPicture(backup.pictureStatus)
-                    l2.updateProfile(backup)
-                    l3.updateDisplayPicture(backup.pictureStatus)
-                    l3.updateProfile(backup)
-                    l4.updateDisplayPicture(backup.pictureStatus)
-                    l4.updateProfile(backup)
-                    l5.updateDisplayPicture(backup.pictureStatus)
-                    l5.updateProfile(backup)
+#                    ki7.updateDisplayPicture(backup.pictureStatus)
+ #                   ki7.updateProfile(backup)
+  #                  ki8.updateDisplayPicture(backup.pictureStatus)
+   #                 ki8.updateProfile(backup)
+    #                ki9.updateDisplayPicture(backup.pictureStatus)
+     #               ki9.updateProfile(backup)
+      #              k1.updateDisplayPicture(backup.pictureStatus)
+       #             k1.updateProfile(backup)
+        #            k2.updateDisplayPicture(backup.pictureStatus)
+         #           k2.updateProfile(backup)
+          #          k3.updateDisplayPicture(backup.pictureStatus)
+          #          k3.updateProfile(backup)
+           #         k4.updateDisplayPicture(backup.pictureStatus)
+            #        k4.updateProfile(backup)
+             #       k5.updateDisplayPicture(backup.pictureStatus)
+              #      k5.updateProfile(backup)
+              #      k6.updateDisplayPicture(backup.pictureStatus)
+               #     k6.updateProfile(backup)
+                #    k7.updateDisplayPicture(backup.pictureStatus)
+                 #   k7.updateProfile(backup)
+                  #  k8.updateDisplayPicture(backup.pictureStatus)
+                   # k8.updateProfile(backup)
+#                    k9.updateDisplayPicture(backup.pictureStatus)
+ #                   k9.updateProfile(backup)
+  #                  w1.updateDisplayPicture(backup.pictureStatus)
+   #                 w1.updateProfile(backup)
+    #                w2.updateDisplayPicture(backup.pictureStatus)
+     #               w2.updateProfile(backup)
+       #             w3.updateDisplayPicture(backup.pictureStatus)
+      #              w3.updateProfile(backup)
+        #            w4.updateDisplayPicture(backup.pictureStatus)
+         #           w4.updateProfile(backup)
+          #          w5.updateDisplayPicture(backup.pictureStatus)
+           #         w5.updateProfile(backup)
+            #        w6.updateDisplayPicture(backup.pictureStatus)
+             #       w6.updateProfile(backup)
+              #      w7.updateDisplayPicture(backup.pictureStatus)
+                #    w7.updateProfile(backup)
+               #     w8.updateDisplayPicture(backup.pictureStatus)
+                 #   w8.updateProfile(backup)
+                  #  w9.updateDisplayPicture(backup.pictureStatus)
+                   # w9.updateProfile(backup)
+#                    l1.updateDisplayPicture(backup.pictureStatus)
+  #                  l1.updateProfile(backup)
+ #                   l2.updateDisplayPicture(backup.pictureStatus)
+    #                l2.updateProfile(backup)
+   #                 l3.updateDisplayPicture(backup.pictureStatus)
+    #                l3.updateProfile(backup)
+     #               l4.updateDisplayPicture(backup.pictureStatus)
+      #              l4.updateProfile(backup)
+       #             l5.updateDisplayPicture(backup.pictureStatus)
+        #            l5.updateProfile(backup)
                     cl.sendText(msg.to, "Backup Sukses Bosqu")
                 except Exception as e:
                     cl.sendText(msg.to, str (e))
@@ -2204,48 +2206,48 @@ def bot(op):
                 g = ki6.getAllContactIds()
                 for manusia in g:
                     ki6.sendText(manusia, (bctxt))
-                h = ki7.getAllContactIds()
-                for manusia in h:
-                    ki7.sendText(manusia, (bctxt))
-                i = ki8.getAllContactIds()
-                for manusia in i:
-                    ki8.sendText(manusia, (bctxt))
-                j = ki9.getAllContactIds()
-                for manusia in j:
-                    ki9.sendText(manusia, (bctxt))
-                k = k1.getAllContactIds()
-                for manusia in k:
-                    k1.sendText(manusia, (bctxt))
-                l = k2.getAllContactIds()
-                for manusia in l:
-                    k2.sendText(manusia, (bctxt))
-                m = k3.getAllContactIds()
-                for manusia in m:
-                    k3.sendText(manusia, (bctxt))
-                n = k4.getAllContactIds()
-                for manusia in n:
-                    k4.sendText(manusia, (bctxt))
-                o = k5.getAllContactIds()
-                for manusia in o:
-                    k5.sendText(manusia, (bctxt))
-                p = k6.getAllContactIds()
-                for manusia in p:
-                    k6.sendText(manusia, (bctxt))
-                q = k7.getAllContactIds()
-                for manusia in q:
-                    k7.sendText(manusia, (bctxt))
-                r = k8.getAllContactIds()
-                for manusia in r:
-                    k8.sendText(manusia, (bctxt))
-                s = k9.getAllContactIds()
-                for manusia in s:
-                    k9.sendText(manusia, (bctxt))
-                t = w1.getAllContactIds()
-                for manusia in t:
-                    w1.sendText(manusia, (bctxt))
-                u = w2.getAllContactIds()
-                for manusia in u:
-                    w2.sendText(manusia, (bctxt))
+ #               h = ki7.getAllContactIds()
+  #              for manusia in h:
+   #                 ki7.sendText(manusia, (bctxt))
+    #            i = ki8.getAllContactIds()
+     #           for manusia in i:
+      #              ki8.sendText(manusia, (bctxt))
+       #         j = ki9.getAllContactIds()
+        #        for manusia in j:
+         #           ki9.sendText(manusia, (bctxt))
+          #      k = k1.getAllContactIds()
+           #     for manusia in k:
+            #        k1.sendText(manusia, (bctxt))
+             #   l = k2.getAllContactIds()
+              #  for manusia in l:
+               #     k2.sendText(manusia, (bctxt))
+                #m = k3.getAllContactIds()
+#                for manusia in m:
+ #                   k3.sendText(manusia, (bctxt))
+  #              n = k4.getAllContactIds()
+   #             for manusia in n:
+    #                k4.sendText(manusia, (bctxt))
+     #           o = k5.getAllContactIds()
+      #          for manusia in o:
+      #              k5.sendText(manusia, (bctxt))
+       #         p = k6.getAllContactIds()
+        #        for manusia in p:
+         #           k6.sendText(manusia, (bctxt))
+          #      q = k7.getAllContactIds()
+           #     for manusia in q:
+            #        k7.sendText(manusia, (bctxt))
+             #   r = k8.getAllContactIds()
+              #  for manusia in r:
+               #     k8.sendText(manusia, (bctxt))
+#                s = k9.getAllContactIds()
+ #               for manusia in s:
+  #                  k9.sendText(manusia, (bctxt))
+   #             t = w1.getAllContactIds()
+    #            for manusia in t:
+     #               w1.sendText(manusia, (bctxt))
+      #          u = w2.getAllContactIds()
+       #         for manusia in u:
+        #            w2.sendText(manusia, (bctxt))
                 
             elif "Bc:grup " in msg.text:
                 bctxt = msg.text.replace("Bc:grup ", "")
@@ -2274,48 +2276,48 @@ def bot(op):
                 g = ki6.getGroupIdsJoined()
                 for manusia in g:
                     ki6.sendText(manusia, (bctxt))
-                h = ki7.getGroupIdsJoined()
-                for manusia in h:
-                    ki7.sendText(manusia, (bctxt))
-                i = ki8.getGroupIdsJoined()
-                for manusia in i:
-                    ki8.sendText(manusia, (bctxt))
-                j = ki9.getGroupIdsJoined()
-                for manusia in j:
-                    ki9.sendText(manusia, (bctxt))
-                k = k1.getGroupIdsJoined()
-                for manusia in k:
-                    k1.sendText(manusia, (bctxt))
-                l = k2.getGroupIdsJoined()
-                for manusia in l:
-                    k2.sendText(manusia, (bctxt))
-                m = k3.getGroupIdsJoined()
-                for manusia in m:
-                    k3.sendText(manusia, (bctxt))
-                n = k4.getGroupIdsJoined()
-                for manusia in n:
-                    k4.sendText(manusia, (bctxt))
-                o = k5.getGroupIdsJoined()
-                for manusia in o:
-                    k5.sendText(manusia, (bctxt))
-                p = k6.getGroupIdsJoined()
-                for manusia in p:
-                    k6.sendText(manusia, (bctxt))
-                q = k7.getGroupIdsJoined()
-                for manusia in q:
-                    k7.sendText(manusia, (bctxt))
-                r = k8.getGroupIdsJoined()
-                for manusia in r:
-                    k8.sendText(manusia, (bctxt))
-                s = k9.getGroupIdsJoined()
-                for manusia in s:
-                    k9.sendText(manusia, (bctxt))
-                t = w1.getGroupIdsJoined()
-                for manusia in t:
-                    w1.sendText(manusia, (bctxt))
-                u = w2.getGroupIdsJoined()
-                for manusia in u:
-                    w2.sendText(manusia, (bctxt))
+ #               h = ki7.getGroupIdsJoined()
+  #              for manusia in h:
+   #                 ki7.sendText(manusia, (bctxt))
+    #            i = ki8.getGroupIdsJoined()
+     #           for manusia in i:
+      #              ki8.sendText(manusia, (bctxt))
+       #         j = ki9.getGroupIdsJoined()
+        #        for manusia in j:
+         #           ki9.sendText(manusia, (bctxt))
+          #      k = k1.getGroupIdsJoined()
+           #     for manusia in k:
+            #        k1.sendText(manusia, (bctxt))
+             #   l = k2.getGroupIdsJoined()
+              #  for manusia in l:
+               #     k2.sendText(manusia, (bctxt))
+#                m = k3.getGroupIdsJoined()
+ #               for manusia in m:
+  #                  k3.sendText(manusia, (bctxt))
+   #             n = k4.getGroupIdsJoined()
+    #            for manusia in n:
+     #               k4.sendText(manusia, (bctxt))
+      #          o = k5.getGroupIdsJoined()
+       #         for manusia in o:
+         #           k5.sendText(manusia, (bctxt))
+        #        p = k6.getGroupIdsJoined()
+           #     for manusia in p:
+          #          k6.sendText(manusia, (bctxt))
+          #      q = k7.getGroupIdsJoined()
+           #     for manusia in q:
+            #        k7.sendText(manusia, (bctxt))
+             #   r = k8.getGroupIdsJoined()
+              #  for manusia in r:
+               #     k8.sendText(manusia, (bctxt))
+                #s = k9.getGroupIdsJoined()
+#                for manusia in s:
+ #                   k9.sendText(manusia, (bctxt))
+  #              t = w1.getGroupIdsJoined()
+   #             for manusia in t:
+    #                w1.sendText(manusia, (bctxt))
+     #           u = w2.getGroupIdsJoined()
+      #          for manusia in u:
+       #             w2.sendText(manusia, (bctxt))
 
             elif "Spam " in msg.text:
                 txt = msg.text.split(" ")
@@ -2373,32 +2375,32 @@ def bot(op):
                 gid = ki4.getGroupIdsJoined()
                 gid = ki5.getGroupIdsJoined()
                 gid = ki6.getGroupIdsJoined()
-                gid = ki7.getGroupIdsJoined()
-                gid = ki8.getGroupIdsJoined()
-                gid = ki9.getGroupIdsJoined()
-                gid = k1.getGroupIdsJoined()
-                gid = k2.getGroupIdsJoined()
-                gid = k3.getGroupIdsJoined()
-                gid = k4.getGroupIdsJoined()
-                gid = k5.getGroupIdsJoined()
-                gid = k6.getGroupIdsJoined()
-                gid = k7.getGroupIdsJoined()
-                gid = k8.getGroupIdsJoined()
-                gid = k9.getGroupIdsJoined()
-                gid = w1.getGroupIdsJoined()
-                gid = w2.getGroupIdsJoined()
-                gid = w3.getGroupIdsJoined()
-                gid = w4.getGroupIdsJoined()
-                gid = w5.getGroupIdsJoined()
-                gid = w6.getGroupIdsJoined()
-                gid = w7.getGroupIdsJoined()
-                gid = w8.getGroupIdsJoined()
-                gid = w9.getGroupIdsJoined()
-                gid = l1.getGroupIdsJoined()
-                gid = l2.getGroupIdsJoined()
-                gid = l3.getGroupIdsJoined()
-                gid = l4.getGroupIdsJoined()
-                gid = l5.getGroupIdsJoined()
+#                gid = ki7.getGroupIdsJoined()
+ #               gid = ki8.getGroupIdsJoined()
+  #              gid = ki9.getGroupIdsJoined()
+   #             gid = k1.getGroupIdsJoined()
+    #            gid = k2.getGroupIdsJoined()
+     #           gid = k3.getGroupIdsJoined()
+      #          gid = k4.getGroupIdsJoined()
+       #         gid = k5.getGroupIdsJoined()
+        #        gid = k6.getGroupIdsJoined()
+         #       gid = k7.getGroupIdsJoined()
+          #      gid = k8.getGroupIdsJoined()
+           #     gid = k9.getGroupIdsJoined()
+            #    gid = w1.getGroupIdsJoined()
+             #   gid = w2.getGroupIdsJoined()
+              #  gid = w3.getGroupIdsJoined()
+               # gid = w4.getGroupIdsJoined()
+                #gid = w5.getGroupIdsJoined()
+#                gid = w6.getGroupIdsJoined()
+ #               gid = w7.getGroupIdsJoined()
+  #              gid = w8.getGroupIdsJoined()
+   #             gid = w9.getGroupIdsJoined()
+   #             gid = l1.getGroupIdsJoined()
+    #            gid = l2.getGroupIdsJoined()
+     #           gid = l3.getGroupIdsJoined()
+      #          gid = l4.getGroupIdsJoined()
+       #         gid = l5.getGroupIdsJoined()
                 for i in gid:
                     ki.leaveGroup(i)
                     ki2.leaveGroup(i)
@@ -2406,32 +2408,32 @@ def bot(op):
                     ki4.leaveGroup(i)
                     ki5.leaveGroup(i)
                     ki6.leaveGroup(i)
-                    ki7.leaveGroup(i)
-                    ki8.leaveGroup(i)
-                    ki9.leaveGroup(i)
-                    k1.leaveGroup(i)
-                    k2.leaveGroup(i)
-                    k3.leaveGroup(i)
-                    k4.leaveGroup(i)
-                    k5.leaveGroup(i)
-                    k6.leaveGroup(i)
-                    k7.leaveGroup(i)
-                    k8.leaveGroup(i)
-                    k9.leaveGroup(i)
-                    w1.leaveGroup(i)
-                    w2.leaveGroup(i)
-                    w3.leaveGroup(i)
-                    w4.leaveGroup(i)
-                    w5.leaveGroup(i)
-                    w6.leaveGroup(i)
-                    w7.leaveGroup(i)
-                    w8.leaveGroup(i)
-                    w9.leaveGroup(i)
-                    l1.leaveGroup(i)
-                    l2.leaveGroup(i)
-                    l3.leaveGroup(i)
-                    l4.leaveGroup(i)
-                    l5.leaveGroup(i)
+#                    ki7.leaveGroup(i)
+ #                   ki8.leaveGroup(i)
+  #                  ki9.leaveGroup(i)
+   #                 k1.leaveGroup(i)
+    #                k2.leaveGroup(i)
+     #               k3.leaveGroup(i)
+      #              k4.leaveGroup(i)
+       #             k5.leaveGroup(i)
+        #            k6.leaveGroup(i)
+         #           k7.leaveGroup(i)
+          #          k8.leaveGroup(i)
+          #          k9.leaveGroup(i)
+           #         w1.leaveGroup(i)
+            #        w2.leaveGroup(i)
+             #       w3.leaveGroup(i)
+             #       w4.leaveGroup(i)
+              #      w5.leaveGroup(i)
+              #      w6.leaveGroup(i)
+               #     w7.leaveGroup(i)
+                #    w8.leaveGroup(i)
+                 #   w9.leaveGroup(i)
+                  #  l1.leaveGroup(i)
+                   # l2.leaveGroup(i)
+                    #l3.leaveGroup(i)
+#                    l4.leaveGroup(i)
+ #                   l5.leaveGroup(i)
                 if wait["lang"] == "JP":
                     cl.sendText(msg.to,"Bot Sudah Keluar Di semua grup")
                 else:
@@ -2981,14 +2983,14 @@ def bot(op):
                             ki4.kickoutFromGroup(msg.to,[jj])
                             ki5.kickoutFromGroup(msg.to,[jj])
                             ki6.kickoutFromGroup(msg.to,[jj])
-                            ki7.kickoutFromGroup(msg.to,[jj])
-                            ki8.kickoutFromGroup(msg.to,[jj])
-                            ki9.kickoutFromGroup(msg.to,[jj])
-                            k1.kickoutFromGroup(msg.to,[jj])
-                            k2.kickoutFromGroup(msg.to,[jj])
-                            k3.kickoutFromGroup(msg.to,[jj])
-                            k4.kickoutFromGroup(msg.to,[jj])
-                            k5.kickoutFromGroup(msg.to,[jj])
+ #                           ki7.kickoutFromGroup(msg.to,[jj])
+  #                          ki8.kickoutFromGroup(msg.to,[jj])
+   #                         ki9.kickoutFromGroup(msg.to,[jj])
+    #                        k1.kickoutFromGroup(msg.to,[jj])
+     #                       k2.kickoutFromGroup(msg.to,[jj])
+      #                      k3.kickoutFromGroup(msg.to,[jj])
+       #                     k4.kickoutFromGroup(msg.to,[jj])
+        #                    k5.kickoutFromGroup(msg.to,[jj])
                             print (msg.to,[jj])
                         except:
                             pass
@@ -3003,14 +3005,14 @@ def bot(op):
                     gs = ki4.getGroup(msg.to)
                     gs = ki5.getGroup(msg.to)
                     gs = ki6.getGroup(msg.to)
-                    gs = ki7.getGroup(msg.to)
-                    gs = ki8.getGroup(msg.to)
-                    gs = ki9.getGroup(msg.to)
-                    gs = w1.getGroup(msg.to)
-                    gs = w2etGroup(msg.to)
-                    gs = w3.getGroup(msg.to)
-                    gs = w4.getGroup(msg.to)
-                    gs = w5.getGroup(msg.to)
+#                    gs = ki7.getGroup(msg.to)
+ #                   gs = ki8.getGroup(msg.to)
+  #                  gs = ki9.getGroup(msg.to)
+   #                 gs = w1.getGroup(msg.to)
+    #                gs = w2.getGroup(msg.to)
+     #               gs = w3.getGroup(msg.to)
+      #              gs = w4.getGroup(msg.to)
+       #             gs = w5.getGroup(msg.to)
                     cl.sendText(msg.to,"Masih Mauko Sundala")
                     targets = []
                     for g in gs.members:
@@ -3023,7 +3025,7 @@ def bot(op):
                         for target in targets:
                           if not target in Bots:
                             try:
-                                klist=[cl,ki,ki2,ki3,ki4,ki5,ki6,ki7,ki8,ki9,w1,w2,w3,w4,w5]
+                                klist=[cl,ki,ki2,ki3,ki4,ki5,ki6]
                                 kicker=random.choice(klist)
                                 kicker.kickoutFromGroup(msg.to,[target])
                                 print (msg.to,[g.mid])
@@ -3053,34 +3055,34 @@ def bot(op):
                         time.sleep(0.01)
                         ki6.acceptGroupInvitationByTicket(msg.to,Ticket)
                         time.sleep(0.01)
-                        ki7.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        ki8.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        ki9.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k1.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k2.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k3.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k4.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k5.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k6.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k7.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k8.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k9.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w1.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w2.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
+ #                       ki7.acceptGroupInvitationByTicket(msg.to,Ticket)
+  #                      time.sleep(0.01)
+   #                     ki8.acceptGroupInvitationByTicket(msg.to,Ticket)
+    #                    time.sleep(0.01)
+     #                   ki9.acceptGroupInvitationByTicket(msg.to,Ticket)
+      #                  time.sleep(0.01)
+       #                 k1.acceptGroupInvitationByTicket(msg.to,Ticket)
+        #                time.sleep(0.01)
+         #               k2.acceptGroupInvitationByTicket(msg.to,Ticket)
+          #              time.sleep(0.01)
+           #             k3.acceptGroupInvitationByTicket(msg.to,Ticket)
+            #            time.sleep(0.01)
+             #           k4.acceptGroupInvitationByTicket(msg.to,Ticket)
+              #          time.sleep(0.01)
+               #         k5.acceptGroupInvitationByTicket(msg.to,Ticket)
+                #        time.sleep(0.01)
+                 #       k6.acceptGroupInvitationByTicket(msg.to,Ticket)
+                  #      time.sleep(0.01)
+                   #     k7.acceptGroupInvitationByTicket(msg.to,Ticket)
+                    #    time.sleep(0.01)
+                     #   k8.acceptGroupInvitationByTicket(msg.to,Ticket)
+                      #  time.sleep(0.01)
+                       # k9.acceptGroupInvitationByTicket(msg.to,Ticket)
+                        #time.sleep(0.01)
+                        #w1.acceptGroupInvitationByTicket(msg.to,Ticket)
+                        #time.sleep(0.01)
+                        #w2.acceptGroupInvitationByTicket(msg.to,Ticket)
+                        #time.sleep(0.01)
                         G = cl.getGroup(msg.to)
                         ginfo = cl.getGroup(msg.to)
                         G.preventJoinByTicket = True
@@ -3110,58 +3112,58 @@ def bot(op):
                         time.sleep(0.2)
                         ki6.acceptGroupInvitationByTicket(msg.to,Ticket)
                         time.sleep(0.2)
-                        ki7.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        ki8.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        ki9.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        k1.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        k2.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        k3.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        k4.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        k5.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.2)
-                        k6.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k7.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k8.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        k9.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w1.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w2.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w3.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w4.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w5.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w6.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w7.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w8.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        w9.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        l1.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        l2.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        l3.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        l4.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
-                        l5.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        time.sleep(0.01)
+ #                       ki7.acceptGroupInvitationByTicket(msg.to,Ticket)
+  #                      time.sleep(0.2)
+   #                     ki8.acceptGroupInvitationByTicket(msg.to,Ticket)
+   #                     time.sleep(0.2)
+    #                    ki9.acceptGroupInvitationByTicket(msg.to,Ticket)
+     #                   time.sleep(0.2)
+     #                   k1.acceptGroupInvitationByTicket(msg.to,Ticket)
+      #                  time.sleep(0.2)
+       #                 k2.acceptGroupInvitationByTicket(msg.to,Ticket)
+        #                time.sleep(0.2)
+         #               k3.acceptGroupInvitationByTicket(msg.to,Ticket)
+          #              time.sleep(0.2)
+           #             k4.acceptGroupInvitationByTicket(msg.to,Ticket)
+            #            time.sleep(0.2)
+             #           k5.acceptGroupInvitationByTicket(msg.to,Ticket)
+              #          time.sleep(0.2)
+               #         k6.acceptGroupInvitationByTicket(msg.to,Ticket)
+                #        time.sleep(0.01)
+                 #       k7.acceptGroupInvitationByTicket(msg.to,Ticket)
+                  #      time.sleep(0.01)
+                   #     k8.acceptGroupInvitationByTicket(msg.to,Ticket)
+                    #    time.sleep(0.01)
+                     #   k9.acceptGroupInvitationByTicket(msg.to,Ticket)
+                      #  time.sleep(0.01)
+                       # w1.acceptGroupInvitationByTicket(msg.to,Ticket)
+                        #time.sleep(0.01)
+                        #w2.acceptGroupInvitationByTicket(msg.to,Ticket)
+#                        time.sleep(0.01)
+ #                       w3.acceptGroupInvitationByTicket(msg.to,Ticket)
+  #                      time.sleep(0.01)
+   #                     w4.acceptGroupInvitationByTicket(msg.to,Ticket)
+    #                    time.sleep(0.01)
+     #                   w5.acceptGroupInvitationByTicket(msg.to,Ticket)
+      #                  time.sleep(0.01)
+       #                 w6.acceptGroupInvitationByTicket(msg.to,Ticket)
+        #                time.sleep(0.01)
+         #               w7.acceptGroupInvitationByTicket(msg.to,Ticket)
+          #              time.sleep(0.01)
+           #             w8.acceptGroupInvitationByTicket(msg.to,Ticket)
+            #            time.sleep(0.01)
+             #           w9.acceptGroupInvitationByTicket(msg.to,Ticket)
+              #          time.sleep(0.01)
+               #         l1.acceptGroupInvitationByTicket(msg.to,Ticket)
+                #        time.sleep(0.01)
+                 #       l2.acceptGroupInvitationByTicket(msg.to,Ticket)
+                  #      time.sleep(0.01)
+                   #     l3.acceptGroupInvitationByTicket(msg.to,Ticket)
+                    #    time.sleep(0.01)
+                     #   l4.acceptGroupInvitationByTicket(msg.to,Ticket)
+                      #  time.sleep(0.01)
+                       # l5.acceptGroupInvitationByTicket(msg.to,Ticket)
+                        #time.sleep(0.01)
                         G = cl.getGroup(msg.to)
                         G.preventJoinByTicket = True
                         ki.updateGroup(G)
@@ -3182,20 +3184,20 @@ def bot(op):
                         ki4.acceptGroupInvitationByTicket(msg.to,Ticket)
                         ki5.acceptGroupInvitationByTicket(msg.to,Ticket)
                         ki6.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        ki7.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        ki8.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        ki9.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k1.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k2.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k3.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k4.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k5.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k6.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k7.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k8.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        k9.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        w1.acceptGroupInvitationByTicket(msg.to,Ticket)
-                        w2.acceptGroupInvitationByTicket(msg.to,Ticket)
+#                        ki7.acceptGroupInvitationByTicket(msg.to,Ticket)
+ #                       ki8.acceptGroupInvitationByTicket(msg.to,Ticket)
+  #                      ki9.acceptGroupInvitationByTicket(msg.to,Ticket)
+   #                     k1.acceptGroupInvitationByTicket(msg.to,Ticket)
+    #                    k2.acceptGroupInvitationByTicket(msg.to,Ticket)
+     #                   k3.acceptGroupInvitationByTicket(msg.to,Ticket)
+     #                   k4.acceptGroupInvitationByTicket(msg.to,Ticket)
+      #                  k5.acceptGroupInvitationByTicket(msg.to,Ticket)
+       #                 k6.acceptGroupInvitationByTicket(msg.to,Ticket)
+        #                k7.acceptGroupInvitationByTicket(msg.to,Ticket)
+         #               k8.acceptGroupInvitationByTicket(msg.to,Ticket)
+          #              k9.acceptGroupInvitationByTicket(msg.to,Ticket)
+           #             w1.acceptGroupInvitationByTicket(msg.to,Ticket)
+            #            w2.acceptGroupInvitationByTicket(msg.to,Ticket)
                         G = cl.getGroup(msg.to)
                         ginfo = cl.getGroup(msg.to)
                         G.preventJoinByTicket = True
@@ -3535,32 +3537,32 @@ def bot(op):
                         ki4.leaveGroup(msg.to)
                         ki5.leaveGroup(msg.to)
                         ki6.leaveGroup(msg.to)
-                        ki7.leaveGroup(msg.to)
-                        ki8.leaveGroup(msg.to)
-                        ki9.leaveGroup(msg.to)
-                        k1.leaveGroup(msg.to)
-                        k2.leaveGroup(msg.to)
-                        k3.leaveGroup(msg.to)
-                        k4.leaveGroup(msg.to)
-                        k5.leaveGroup(msg.to)
-                        k6.leaveGroup(msg.to)
-                        k7.leaveGroup(msg.to)
-                        k8.leaveGroup(msg.to)
-                        k9.leaveGroup(msg.to)
-                        w1.leaveGroup(msg.to)
-                        w2.leaveGroup(msg.to)
-                        w3.leaveGroup(msg.to)
-                        w4.leaveGroup(msg.to)
-                        w5.leaveGroup(msg.to)
-                        w6.leaveGroup(msg.to)
-                        w7.leaveGroup(msg.to)
-                        w8.leaveGroup(msg.to)
-                        w9.leaveGroup(msg.to)
-                        l1.leaveGroup(msg.to)
-                        l2.leaveGroup(msg.to)
-                        l3.leaveGroup(msg.to)
-                        l4.leaveGroup(msg.to)
-                        l5.leaveGroup(msg.to)
+#                        ki7.leaveGroup(msg.to)
+ #                       ki8.leaveGroup(msg.to)
+  #                      ki9.leaveGroup(msg.to)
+   #                     k1.leaveGroup(msg.to)
+    #                    k2.leaveGroup(msg.to)
+     #                   k3.leaveGroup(msg.to)
+      #                  k4.leaveGroup(msg.to)
+       #                 k5.leaveGroup(msg.to)
+        #                k6.leaveGroup(msg.to)
+         #               k7.leaveGroup(msg.to)
+          #              k8.leaveGroup(msg.to)
+           #             k9.leaveGroup(msg.to)
+            #            w1.leaveGroup(msg.to)
+             #           w2.leaveGroup(msg.to)
+              #          w3.leaveGroup(msg.to)
+               #         w4.leaveGroup(msg.to)
+                #        w5.leaveGroup(msg.to)
+                 #       w6.leaveGroup(msg.to)
+                  #      w7.leaveGroup(msg.to)
+                   #     w8.leaveGroup(msg.to)
+                    #    w9.leaveGroup(msg.to)
+                     #   l1.leaveGroup(msg.to)
+                      #  l2.leaveGroup(msg.to)
+                       # l3.leaveGroup(msg.to)
+                        #l4.leaveGroup(msg.to)
+                        #l5.leaveGroup(msg.to)
                     except:
                         pass
 #-----------------------------------------------
